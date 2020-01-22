@@ -3,38 +3,30 @@ body{
     font-size: 16px;
     margin:0;
     background: #fff;
+    color: #212121;
 }
 a{
     text-decoration: none;
 }
 header{
     text-align: center;
-    background: #005252;
-    color: white;
     padding: 5px;
 }
 .container{
+    background: #f2f2f2;
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 140px auto auto;
-    grid-template-areas: 
-        "header header header"
+    grid-template-rows: 85px auto;
+    grid-template-areas:
+        "subtitles header descriptions"
         "subtitles video descriptions"
-        "subtitles currentTime descriptions"
-        "subtitles output descriptions"
 }
 header {
     grid-area: header;
 }
 .subtitles {
     grid-area: subtitles;
-}
-#currentTime{
-    grid-area: currentTime;
-}
-output {
-    grid-area: output;
 }
 .descriptions {
     grid-area: descriptions;
@@ -46,31 +38,37 @@ output {
 video{
     max-width: 800px;
 }
+.info{
+    display: flex;
+    align-items: center;
+}
 .subtitles, .descriptions{
     display: flex;
     flex-direction: column;
     border: 2px solid transparent;
 }
-.subtitles h2{
-    background: #3a3a3a;
-    color: white;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-}
+.subtitles h2,
 .descriptions h2{
-    background: #3a3a3a;
-    color: greenyellow;
+    color: #009688;
     margin: 0;
     padding: 20px;
     text-align: center;
 }
-iframe{
-    border: none;
+
+#subtitlesRaw, #descriptionsRaw{
     flex: 1;
+    font-size: 16px;
+    padding: 20px;
+    margin: 20px;
 }
+#currentTime{
+    font-weight: bold;
+    margin-right: 17px;
+}
+
 #audioDesc{
     color: #007e72;
+    background: white;
     text-align: center;
     font-size: 22px;
     padding: 10px;

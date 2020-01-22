@@ -31,7 +31,7 @@ subtitlesDragDrop('.subtitles', (files, pos, fileList, directories) => {
       const arr = new Uint8Array(e.target.result)
       const buffer = new Buffer(arr)
       
-      document.getElementById('subtitlesRaw').textContent = buffer;
+      document.getElementById('subtitlesRaw').value = buffer;
  
     })
     reader.addEventListener('error', err => {
@@ -70,7 +70,7 @@ descriptionsDragDrop('.descriptions', (files, pos, fileList, directories) => {
         const arr = new Uint8Array(e.target.result)
         const buffer = new Buffer(arr)
         
-        document.getElementById('descriptionsRaw').textContent = buffer;
+        document.getElementById('descriptionsRaw').value = buffer;
    
       })
       reader.addEventListener('error', err => {
