@@ -1,10 +1,18 @@
 import { formatTime } from './js/utils/time.js';
 import { AudioDescriptor } from './js/audioDescriptor.js';
+import { testVTT } from './js/testVTT.js';
+import './js/fileHandler.js';
 import styles from './css/index.css';
 
 let player = document.getElementById('player');
 let subtitles = document.getElementById('subtitles');
+let subtitlesList = document.getElementById('subtitlesList');
+let subtitlesStatus = document.getElementById('subtitlesStatus');
+let subtitlesRaw = document.getElementById('subtitlesRaw');
 let descriptions = document.getElementById('descriptions');
+let descriptionsList = document.getElementById('descriptionsList');
+let descriptionsStatus = document.getElementById('descriptionsStatus');
+let descriptionsRaw = document.getElementById('descriptionsRaw');
 let currentTime = document.getElementById('currentTime');
 
 let defaults = {
@@ -16,7 +24,7 @@ let defaults = {
 
 function videoTimeUpdate(e){
     //set controls settings to controls,this make controls show everytime this event is triggered
-    player.setAttribute("controls","controls");
+    // player.setAttribute("controls","controls");
     
     currentTime.textContent = formatTime(player.currentTime);
 }
@@ -24,11 +32,30 @@ function videoTimeUpdate(e){
 player.src = defaults.src;
 player.poster = defaults.poster;
 subtitles.src = defaults.subtitles;
-subtitlesRaw.src = defaults.subtitles;
 descriptions.src = defaults.descriptions;
-descriptionsRaw.src = defaults.descriptions;
 
-player.addEventListener('timeupdate', videoTimeUpdate, false);
+fetch(defaults.subtitles)
+  .then((response) => {
+    return response.text()
+  })
+  .then((vttText) => {
+    subtitlesRaw.value = vttText;
+    testVTT(subtitlesRaw, subtitlesList, subtitlesStatus, subtitlesCues);
+  });
+  
+  fetch(defaults.descriptions)
+  .then((response) => {
+    return response.text()
+  })
+  .then((vttText) => {
+    descriptionsRaw.value = vttText;
+    testVTT(descriptionsRaw, descriptionsList, descriptionsStatus, descriptionsCues);
+  });
+  
+  
+  player.addEventListener('timeupdate', videoTimeUpdate, false);
+  subtitlesRaw.addEventListener('input', event => testVTT(subtitlesRaw, subtitlesList, subtitlesStatus, subtitlesCues));
+  descriptionsRaw.addEventListener('input', event => testVTT(descriptionsRaw, descriptionsList, descriptionsStatus, descriptionsCues));
 
 // Setup audio descriptor
 new AudioDescriptor(player, false, "audioDesc");
