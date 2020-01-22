@@ -21,6 +21,7 @@ header{
     grid-template-areas: 
         "header header header"
         "subtitles video descriptions"
+        "subtitles currentTime descriptions"
         "subtitles output descriptions"
 }
 header {
@@ -28,6 +29,9 @@ header {
 }
 .subtitles {
     grid-area: subtitles;
+}
+#currentTime{
+    grid-area: currentTime;
 }
 output {
     grid-area: output;
