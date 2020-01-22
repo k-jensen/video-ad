@@ -1,0 +1,27 @@
+html
+    head
+        title= title
+        link(rel="stylesheet" type="text/css" href="/css/index.css")
+    body
+        .container
+            header
+                h1 Video/Subtitles/Descriptions
+                h2#title
+            .subtitles
+                h2 Subtitles
+                iframe#subtitlesRaw(src="/video/subtitles.vtt")
+            output#audioDesc AUDIO OUTPUT
+            .video
+                video#player(src="https://www.ada.gov/video/voices-olmstead-audioCC.mp4" controls)
+                    track#subtitles(kind="subtitles" srclang="en" src="https://www.ada.gov/video/voices-olmstead.vtt" default)
+                    track#descriptions(kind="descriptions" srclang="en" src="https://www.ada.gov/video/voices-olmstead.vtt" default)
+                p Video source:
+                    a(href="https://www.ada.gov/video/voices-olmstead.html")  Voices from the Olmstead Decision
+            .descriptions
+                h2 Descriptions
+                iframe#descriptionsRaw(src="/video/descriptions.AD.vtt")
+        
+        
+        script(src="js/audioDescriptor.js")
+        script(src="js/index.js")
+            
