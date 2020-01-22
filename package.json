@@ -1,0 +1,23 @@
+{
+  "name": "video-ad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k-jensen/video-ad.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/k-jensen/video-ad/issues"
+  },
+  "homepage": "https://github.com/k-jensen/video-ad#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
