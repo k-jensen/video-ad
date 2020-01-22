@@ -49,6 +49,7 @@ video{
 .subtitles, .descriptions{
     display: flex;
     flex-direction: column;
+    border: 2px solid transparent;
 }
 .subtitles h2{
     background: #3a3a3a;
@@ -74,4 +75,8 @@ iframe{
     font-size: 22px;
     padding: 10px;
     font-weight: bold;
+}
+
+.drag{
+    border: 2px dashed blue;
 }

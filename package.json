@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/k-jensen/video-ad#readme",
   "dependencies": {
+    "drag-drop": "^6.0.0",
     "express": "^4.17.1",
     "pug": "^2.0.4"
   },

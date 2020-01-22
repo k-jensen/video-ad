@@ -1,5 +1,6 @@
 import { formatTime } from './js/utils/time.js';
 import { AudioDescriptor } from './js/audioDescriptor.js';
+import './js/fileHandler.js';
 import styles from './css/index.css';
 
 let player = document.getElementById('player');
@@ -24,9 +25,24 @@ function videoTimeUpdate(e){
 player.src = defaults.src;
 player.poster = defaults.poster;
 subtitles.src = defaults.subtitles;
-subtitlesRaw.src = defaults.subtitles;
 descriptions.src = defaults.descriptions;
-descriptionsRaw.src = defaults.descriptions;
+
+fetch(defaults.subtitles)
+  .then((response) => {
+    return response.text()
+  })
+  .then((vttText) => {
+    subtitlesRaw.textContent = vttText;
+  });
+
+fetch(defaults.descriptions)
+  .then((response) => {
+    return response.text()
+  })
+  .then((vttText) => {
+    descriptionsRaw.textContent = vttText;
+  });
+  
 
 player.addEventListener('timeupdate', videoTimeUpdate, false);
 
