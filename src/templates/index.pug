@@ -1,0 +1,22 @@
+html
+    head
+        title= title
+    body
+        .container
+            header
+                h1 Video/Subtitles/Descriptions
+                h2#title
+            .subtitles
+                h2 Subtitles
+                iframe#subtitlesRaw(src="/other")
+            p#currentTime CURRENT TIME
+            output#audioDesc AUDIO OUTPUT
+            .video
+                video#player(src="" controls crossorigin playsinline)
+                    track#subtitles(kind="subtitles" srclang="en" src="" default)
+                    track#descriptions(kind="descriptions" srclang="en" src="" default)
+                p
+                    a(href="https://itunes.apple.com/au/movie/view-from-a-blue-moon/id1041586323" target="_blank") View From A Blue Moon
+            .descriptions
+                h2 Descriptions
+                iframe#descriptionsRaw(src="/other")
