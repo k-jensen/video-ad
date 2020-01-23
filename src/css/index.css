@@ -78,3 +78,19 @@ video{
 .drag{
     border: 2px dashed blue;
 }
+
+.CodeMirror{
+    height: 100%;
+}
+.cm-vtt{
+    color: red;
+}
+.cm-vtt-head{
+    color: blue;
+}
+.cm-vtt-arrow{
+    color: #608df1;
+}
+video::cue(v) {
+    color: greenyellow;
+  }

@@ -9,9 +9,14 @@ html
 
             .subtitles
                 h2 Subtitles
+                div
+                    label Filename
+                    input#subtitlesFilename(type="text" placeholder="subtitles" value="subtitles")
+                    span .vtt
+                button#subtitlesDownload Download
                 textarea#subtitlesRaw
+                p#subtitlesStatus
                 ol#subtitlesPreview
-                p#subtitlesStatus STATUS
                 pre#subtitlesCues(hidden)
                 ol#subtitlesList
 
@@ -24,12 +29,18 @@ html
                     a(href="https://itunes.apple.com/au/movie/view-from-a-blue-moon/id1041586323" target="_blank") View From A Blue Moon
 
                 .info
-                    #currentTime CURRENT TIME
-                    output#audioDesc AUDIO DESCRIPTION OUTPUT
+                    #currentTime
+                    output#audioDesc
 
             .descriptions
                 h2 Descriptions
+                div
+                    label Filename
+                    input#descriptionsFilename(type="text" placeholder="descriptions" value="descriptions")
+                    span .vtt
+                button#descriptionsDownload Download
                 textarea#descriptionsRaw
-                p#descriptionsStatus STATUS
+                p#descriptionsStatus
+                ol#descriptionsPreview
                 pre#descriptionsCues(hidden)
                 ol#descriptionsList
