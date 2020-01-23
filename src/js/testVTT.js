@@ -1,6 +1,6 @@
 import './utils/parser.js'
 
-export function testVTT(element, infoList, status, hiddenCues){
+export function testVTT(element, infoList, status, hiddenCues, previewEl, callback){
     console.log('checking...')
     var pa = new WebVTTParser(),
         r = pa.parse(element.value, 'subtitles/captions/descriptions' )
@@ -30,4 +30,5 @@ export function testVTT(element, infoList, status, hiddenCues){
     p.textContent += " (" + r.time + "ms)"
     var s = new WebVTTSerializer()
     pre.textContent = s.serialize(r.cues)
+    callback(previewEl, element.value);
 }

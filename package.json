@@ -18,9 +18,14 @@
   },
   "homepage": "https://github.com/k-jensen/video-ad#readme",
   "dependencies": {
+    "codemirror": "^5.51.0",
     "drag-drop": "^6.0.0",
     "express": "^4.17.1",
-    "pug": "^2.0.4"
+    "node-webvtt": "^1.7.0",
+    "pug": "^2.0.4",
+    "videojs-vtt.js": "^0.15.2",
+    "vtt-to-json": "^0.1.1",
+    "vtt.js": "^0.13.0"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
