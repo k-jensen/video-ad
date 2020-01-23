@@ -1,9 +1,10 @@
 import './utils/parser.js'
 
-export function testVTT(element, infoList, status, hiddenCues){
+export function testVTT(mode, track, input, infoList, status, hiddenCues, previewEl, callback){
     console.log('checking...')
+    let valid = false;
     var pa = new WebVTTParser(),
-        r = pa.parse(element.value, 'subtitles/captions/descriptions' )
+        r = pa.parse(input, 'subtitles/captions/descriptions' )
     var ol = infoList,
         p = status,
         pre = hiddenCues
@@ -26,8 +27,10 @@ export function testVTT(element, infoList, status, hiddenCues){
       }
     } else {
       p.textContent = "This is boring, your WebVTT is valid!"
+      valid = true;
     }
     p.textContent += " (" + r.time + "ms)"
     var s = new WebVTTSerializer()
     pre.textContent = s.serialize(r.cues)
+    if(valid) callback(mode, input);
 }

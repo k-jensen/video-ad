@@ -1,6 +1,7 @@
 html
     head
         title= title
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css")
     body
         .container
             header
@@ -8,24 +9,38 @@ html
 
             .subtitles
                 h2 Subtitles
+                div
+                    label Filename
+                    input#subtitlesFilename(type="text" placeholder="subtitles" value="subtitles")
+                    span .vtt
+                button#subtitlesDownload Download
                 textarea#subtitlesRaw
-                p#subtitlesStatus STATUS
+                p#subtitlesStatus
+                ol#subtitlesPreview
                 pre#subtitlesCues(hidden)
                 ol#subtitlesList
-
 
             .video
                 video#player(src="" controls crossorigin playsinline)
                     track#subtitles(kind="subtitles" srclang="en" src="" default)
                     track#descriptions(kind="descriptions" srclang="en" src="" default)
+
                 p#reference
                     a(href="https://itunes.apple.com/au/movie/view-from-a-blue-moon/id1041586323" target="_blank") View From A Blue Moon
+
                 .info
-                    #currentTime CURRENT TIME
-                    output#audioDesc AUDIO DESCRIPTION OUTPUT
+                    #currentTime
+                    output#audioDesc
+
             .descriptions
                 h2 Descriptions
+                div
+                    label Filename
+                    input#descriptionsFilename(type="text" placeholder="descriptions" value="descriptions")
+                    span .vtt
+                button#descriptionsDownload Download
                 textarea#descriptionsRaw
-                p#descriptionsStatus STATUS
+                p#descriptionsStatus
+                ol#descriptionsPreview
                 pre#descriptionsCues(hidden)
                 ol#descriptionsList
