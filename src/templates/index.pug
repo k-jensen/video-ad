@@ -7,13 +7,14 @@ html
             header
                 h1 Test your video and text tracks
 
-            .subtitles
+            section.subtitles
                 h2 Subtitles
                 div
                     label Filename
                     input#subtitlesFilename(type="text" placeholder="subtitles" value="subtitles")
                     span .vtt
-                button#subtitlesDownload Download
+                    button#subtitlesDownload Download
+
                 textarea#subtitlesRaw
                 p#subtitlesStatus
                 ol#subtitlesPreview
@@ -37,8 +38,8 @@ html
                 div
                     label Filename
                     input#descriptionsFilename(type="text" placeholder="descriptions" value="descriptions")
-                    span .vtt
-                button#descriptionsDownload Download
+                    span .AD.vtt
+                    button#descriptionsDownload Download
                 textarea#descriptionsRaw
                 p#descriptionsStatus
                 ol#descriptionsPreview

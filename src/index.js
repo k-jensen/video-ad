@@ -7,9 +7,12 @@ import './js/fileHandler.js';
 import styles from './css/index.css';
 import CodeMirror from 'codemirror';
 import overlayMode from 'codemirror/addon/mode/overlay.js'
+import searchCursor from 'codemirror/addon/search/searchcursor.js'
+import markSelection from 'codemirror/addon/selection/mark-selection.js'
 
 let player = document.getElementById('player');
 
+let subtitlesSection = document.querySelector('.subtitles');
 let subtitles = document.getElementById('subtitles');
 let subtitlesList = document.getElementById('subtitlesList');
 let subtitlesStatus = document.getElementById('subtitlesStatus');
@@ -75,19 +78,41 @@ fetch(defaults.subtitles)
     let editor = CodeMirror.fromTextArea(subtitlesRaw, {
       lineNumbers: true,
       value: vttText,
-      mode: 'vtt'
+      mode: 'vtt',
+      styleSelectedText: true
     });
 
     editor.on('change', event => {
+      let errorMarkers = testVTT('subtitles', editor.getValue(), updatePreview)
+      if(errorMarkers){
+        editor.eachLine(line => {
+          editor.removeLineClass(line, "background", "styled-background")  
+        })
+
+        // editor.getAllMarks(mark => {
+        //   mark.clear();
+        // })
+
+        errorMarkers.forEach(marker => {
+          console.log(marker)
+        
+          // if(!marker.ch){
+            editor.addLineClass(marker.line - 1, "background", "styled-background")  
+          // }else{
+            // let from = {line: marker.line - 1, ch: marker.ch};
+            // let to = {line: marker.line - 1, ch: marker.ch + 1};
+            // editor.markText(from, to, {className: "styled-background"});
+          // }
+        })
+      }
       editor.save();
-      testVTT('subtitles', subtitles, editor.getValue(), subtitlesList, subtitlesStatus, subtitlesCues, subtitlesPreview, updatePreview)
     })
     editor.on('drop', event => {
       // let file = event.dataTransfer.items[0].name;
       console.log('DROPPED', event)
       editor.setValue('');
     })
-    testVTT('subtitles', subtitles, editor.getValue(), subtitlesList, subtitlesStatus, subtitlesCues, subtitlesPreview, updatePreview)
+    testVTT('subtitles', editor.getValue(), updatePreview)
   });
 
 fetch(defaults.descriptions)
@@ -99,57 +124,57 @@ fetch(defaults.descriptions)
     let editor = CodeMirror.fromTextArea(descriptionsRaw, {
       lineNumbers: true,
       value: vttText,
-      mode: 'vtt'
+      mode: 'vtt',
+      styleSelectedText: true
     });
 
     editor.on('change', event => {
       editor.save();
-      testVTT('descriptions', descriptions, editor.getValue(), descriptionsList, descriptionsStatus, descriptionsCues, descriptionsPreview, updatePreview)
+      testVTT('descriptions', editor.getValue(), updatePreview)
     })
     editor.on('drop', event => {
       console.log('DROPPED', event)
       editor.setValue('');
     })
-    testVTT('descriptions', descriptions, editor.getValue(), descriptionsList, descriptionsStatus, descriptionsCues, descriptionsPreview, updatePreview)
+    testVTT('descriptions', editor.getValue(), updatePreview)
   });
 
-let updatePreview = (mode, input) => {
-  const segmentDuration = 10; // default to 10
-  const startOffset = 0; // Starting MPEG TS offset to be used in timestamp map, default 900000
-  // element.textContent = "";
-  let track, btn, filename;
+let updatePreview = (mode, valid, result) => {
+  
+  let trackEl, statusEl, messageListEl;
+  
   if (mode === 'subtitles') {
-    track = subtitles;
+    trackEl = subtitles;
+    statusEl = subtitlesStatus;
+    messageListEl = subtitlesPreview;
   }
 
   if (mode === 'descriptions') {
-    track = descriptions;
+    trackEl = descriptions;
+    statusEl = descriptionsStatus;
+    messageListEl = descriptionsPreview;
   }
 
-  try {
-    const parsed = webvtt.parse(input);
-    // parsed.cues.forEach(cue => {
-    //   let li = document.createElement('li');
-    //   li.textContent = cue.text;
-    //   element.appendChild(li);
-    // })
+  messageListEl.textContent = "";
+  statusEl.textContent = result.status;
 
-    let blob = new Blob([input], {
-      type: 'text/plain;charset=utf-8'
+  // Set updated subtitles/descriptions as src
+  if(valid){
+
+    let blob = new Blob([result.input], {
+      type: 'text/vtt;charset=utf-8'
     });
 
     const obj_url = window.URL.createObjectURL(blob);
-    (mode == 'subtitles') ? subtitlesBlob : descriptionsBlob = obj_url;
-    track.src = obj_url;
-    // player.play();
-    // window.URL.revokeObjectURL(obj_url);
-    // const compile = webvtt.compile(parsed); // back to vtt
-    // const segmented = webvtt.parse(input, segmentDuration);
-    // const playlist = webvtt.hls.hlsSegmentPlaylist(input, segmentDuration);
-    // const segments = webvtt.hls.hlsSegment(input, segmentDuration, startOffset);
-    // console.log(parsed)
-  } catch (err) {
-    console.log(err)
+    trackEl.src = obj_url;
+
+  }else{
+    result.messages.forEach(message => {
+      let li = document.createElement('li');
+      li.textContent = message;
+      messageListEl.append(li)
+    })
+
   }
 
 }
@@ -157,23 +182,24 @@ let updatePreview = (mode, input) => {
 player.addEventListener('timeupdate', videoTimeUpdate, false);
 subtitlesDownload.addEventListener('click', handleClick);
 descriptionsDownload.addEventListener('click', handleClick);
+subtitlesSection.addEventListener('drop', event => console.log(event))
 
 function handleClick(event) {
   let content, filename;
 
   if (event.target === subtitlesDownload) {
     content = subtitlesRaw.value;
-    filename = subtitlesFilename.value;
+    filename = subtitlesFilename.value + '.vtt';
   }
   if (event.target === descriptionsDownload) {
     content = descriptionsRaw.value;
-    filename = descriptionsFilename.value
+    filename = descriptionsFilename.value + '.AD.vtt';
   }
   if (content && filename) {
     var blob = new Blob([content], {
       type: "text/plain;charset=utf-8"
     });
-    filename += '.vtt';
+    
     saveAs(blob, filename);
   }
 }

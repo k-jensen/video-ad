@@ -94,3 +94,7 @@ video{
 video::cue(v) {
     color: greenyellow;
   }
+
+  .styled-background{
+      background-color: tomato;
+  }

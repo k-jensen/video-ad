@@ -1,36 +1,43 @@
-import './utils/parser.js'
+import { WebVTTParser, WebVTTSerializer } from './utils/parser.js'
 
-export function testVTT(mode, track, input, infoList, status, hiddenCues, previewEl, callback){
+export function testVTT(mode, input, callback){
     console.log('checking...')
     let valid = false;
-    var pa = new WebVTTParser(),
-        r = pa.parse(input, 'subtitles/captions/descriptions' )
-    var ol = infoList,
-        p = status,
-        pre = hiddenCues
-    ol.textContent = ""
+    const pa = new WebVTTParser();
+    let r = pa.parse(input, 'subtitles/captions/descriptions' );
+    
+    let messages = [];
+    let errorMarkers = [];
+    let hiddenCues = [];
+    let status = "";
+
     if(r.errors.length > 0) {
       if(r.errors.length == 1)
-        p.textContent = "Almost there!"
+        status = "Almost there!"
       else if(r.errors.length < 5)
-        p.textContent = "Not bad, keep at it!"
+        status = "Not bad, keep at it!"
       else
-        p.textContent = "You are hopeless, RTFS."
+        status = "You are hopeless, RTFS."
       for(var i = 0; i < r.errors.length; i++) {
-        var error = r.errors[i],
-            message = "Line " + error.line,
-            li = document.createElement("li")
-        if(error.col)
+        
+        let error = r.errors[i];
+        let message = "Line " + error.line;  
+        let errorMarker = { line: error.line };
+        
+        if(error.col){
           message += ", column " + error.col
-        li.textContent = message + ": " + error.message
-        ol.appendChild(li)
+          errorMarker.ch = error.col;
+        }
+        messages.push(message + ": " + error.message)
+        errorMarkers.push(errorMarker)
       }
     } else {
-      p.textContent = "This is boring, your WebVTT is valid!"
+      status = "This is boring, your WebVTT is valid!"
       valid = true;
     }
-    p.textContent += " (" + r.time + "ms)"
+    status += " (" + r.time + "ms)"
     var s = new WebVTTSerializer()
-    pre.textContent = s.serialize(r.cues)
-    if(valid) callback(mode, input);
+    hiddenCues = s.serialize(r.cues)
+    callback(mode, valid, { input, status, messages, hiddenCues });
+    return errorMarkers;
 }
