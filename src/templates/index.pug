@@ -5,24 +5,19 @@ html
     body
         .container
             header
-                h1 Test your video and text tracks
+                h1 Video AD
+                p Testing Audio Descriptions
 
             section.subtitles
                 h2 Subtitles
-                div
-                    label Filename
+                textarea#subtitlesRaw
+                .download
                     input#subtitlesFilename(type="text" placeholder="subtitles" value="subtitles")
                     span .vtt
                     button#subtitlesDownload Download
-
-                textarea#subtitlesRaw
-                p#subtitlesStatus
-                ol#subtitlesPreview
-                pre#subtitlesCues(hidden)
-                ol#subtitlesList
-
-            .video
-                video#player(src="" controls crossorigin playsinline)
+               
+            section.video
+                video#video(src="" controls crossorigin playsinline)
                     track#subtitles(kind="subtitles" srclang="en" src="" default)
                     track#descriptions(kind="descriptions" srclang="en" src="" default)
 
@@ -30,18 +25,16 @@ html
                     a(href="https://itunes.apple.com/au/movie/view-from-a-blue-moon/id1041586323" target="_blank") View From A Blue Moon
 
                 .info
-                    #currentTime
+                    div
+                        label(for="audioToggle") text to speech
+                        input#audioToggle(type="checkbox" checked)
+                        #currentTime
                     output#audioDesc
 
-            .descriptions
+            section.descriptions
                 h2 Descriptions
-                div
-                    label Filename
+                textarea#descriptionsRaw
+                .download
                     input#descriptionsFilename(type="text" placeholder="descriptions" value="descriptions")
                     span .AD.vtt
                     button#descriptionsDownload Download
-                textarea#descriptionsRaw
-                p#descriptionsStatus
-                ol#descriptionsPreview
-                pre#descriptionsCues(hidden)
-                ol#descriptionsList

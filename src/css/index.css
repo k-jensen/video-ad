@@ -2,18 +2,25 @@ body{
     font-family: sans-serif;
     font-size: 16px;
     margin:0;
-    background: #fff;
-    color: #212121;
+    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+    color: #ffffff;
 }
 a{
     text-decoration: none;
+    color: #ffffff;
 }
+
 header{
     text-align: center;
     padding: 5px;
 }
+header h1{
+    font-size: 50px;
+    font-weight: 300;
+    margin-bottom: 0px;
+}
+
 .container{
-    background: #f2f2f2;
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 2fr 1fr;
@@ -27,9 +34,11 @@ header {
 }
 .subtitles {
     grid-area: subtitles;
+    margin-left: 20px;
 }
 .descriptions {
     grid-area: descriptions;
+    margin-right: 20px;
 }
 .video{
     grid-area: video;
@@ -40,8 +49,14 @@ video{
 }
 .info{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
 }
+
+.info label{
+    color: white;
+}
+
 .subtitles, .descriptions{
     display: flex;
     flex-direction: column;
@@ -49,10 +64,13 @@ video{
 }
 .subtitles h2,
 .descriptions h2{
-    color: #009688;
+    color: #ffffff;
     margin: 0;
     padding: 20px;
     text-align: center;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 4px;
 }
 
 #subtitlesRaw, #descriptionsRaw{
@@ -62,8 +80,11 @@ video{
     margin: 20px;
 }
 #currentTime{
+    color: white;
     font-weight: bold;
     margin-right: 17px;
+    text-align: right;
+    margin: 10px 0;
 }
 
 #audioDesc{
@@ -73,6 +94,22 @@ video{
     font-size: 22px;
     padding: 10px;
     font-weight: bold;
+    position: relative;
+    border-radius: 4px;
+}
+#audioDesc:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-left-color: white;
+	border-right: 0;
+	border-top: 0;
+	margin-top: -10px;
+	margin-right: -20px;
 }
 
 .drag{
@@ -81,6 +118,8 @@ video{
 
 .CodeMirror{
     height: 100%;
+    border-radius: 5px;
+    padding: 20px 20px 20px 0;
 }
 .cm-vtt{
     color: red;
@@ -95,6 +134,60 @@ video::cue(v) {
     color: greenyellow;
   }
 
-  .styled-background{
-      background-color: tomato;
-  }
+.styled-background{
+    background-color: #ffa;
+}
+#subtitlesFilename,
+#descriptionsFilename{
+    text-align: right;
+    background: none;
+    color: #ffffff;
+    padding: 13px;
+    font-size: 18px;
+    border: 1px solid transparent;
+}
+#subtitlesFilename:hover,
+#descriptionsFilename:hover{
+    border: 1px solid white;
+}
+.lint-error {
+    font-family: arial;
+    font-size: 70%;
+    background: #ffa;
+    color: #a00;
+    padding: 2px 5px 3px;
+}
+.lint-error-icon {
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 0 3px;
+    margin-right: 7px;
+}
+
+.download{
+    padding: 20px 0;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 18px;
+}
+.download button{
+    margin-left: 20px;
+    font-size: 16px;
+    border: none;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    font-size: 18px;
+}
+.download button:hover{
+    background: white;
+    border-color: transparent;
+    color: #0f101c;
+}
