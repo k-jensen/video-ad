@@ -11,7 +11,7 @@ let defaults = {
   src: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4",
   poster: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg",
   subtitles: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt",
-  descriptions: "/assets/descriptions.AD.vtt",
+  descriptions: "/video-ad/assets/descriptions.AD.vtt",
 }
 
 let video = document.getElementById('video');
