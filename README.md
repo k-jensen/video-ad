@@ -5,4 +5,4 @@
 - npm start
 
 ## Demo
-https://video-ad.azurewebsites.net/
+https://k-jensen.github.io/video-ad/
