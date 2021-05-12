@@ -21,7 +21,7 @@
   "homepage": "https://k-jensen.github.io/video-ad",
   "dependencies": {
     "basic-tts": "^1.0.4",
-    "codemirror": "^5.51.0",
+    "codemirror": "^5.58.2",
     "drag-drop": "^6.0.0",
     "express": "^4.17.1",
     "file-saver": "^2.0.2",
