@@ -23,7 +23,7 @@
     "basic-tts": "^1.0.4",
     "codemirror": "^5.51.0",
     "drag-drop": "^6.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "file-saver": "^2.0.2",
     "gh-pages": "^2.2.0",
     "node-webvtt": "^1.7.0",
